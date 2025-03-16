@@ -1,12 +1,12 @@
-$blue: #224AFB;
-html, body, ul {
-  background: blue;
-  margin: 0;
-  padding: 0;
-}
+
+/*html, body, ul {*/
+/*  background: #9e7c5a;*/
+/*  margin: 0;*/
+/*  padding: 0;*/
+/*}*/
 
 .App {
-  //text-align: center;
+  text-align: center;
   div {
     margin-top: 40px;
   }
@@ -57,4 +57,119 @@ html, body, ul {
   to {
     transform: rotate(360deg);
   }
+}
+
+.App-main {
+  display: flex;
+  justify-content: space-around;
+}
+
+.App-table {
+  width: 100%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  font-family: 'Arial', sans-serif;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Table header styling */
+.App-table th {
+  background-color: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  font-size: 1.2em;
+}
+
+
+/* Table body styling */
+.App-table td {
+  border: 1px solid #ddd;
+  padding: 12px;
+  text-align: center;
+  font-size: 1em;
+}
+
+/* Zebra striping for table rows */
+.App-table tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Hover effect for table rows */
+.App-table tr:hover {
+  background-color: #ddd;
+}
+
+/* Responsive table */
+@media screen and (max-width: 600px) {
+  .App-table, .App-table th, .App-table td {
+    display: block;
+    width: 100%;
+  }
+  .App-table th {
+    text-align: left;
+  }
+}
+/* General styling for the home page */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-size: 2em;
+}
+
+main {
+  padding: 20px;
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+p {
+  color: #666;
+  line-height: 1.6;
+  margin: 20px 0;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+button:hover {
+  background-color: #45a049;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
