@@ -1,0 +1,24 @@
+{
+  "files": {
+    "main.css": "/imcc/static/css/main.d5eec487.chunk.css",
+    "main.js": "/imcc/static/js/main.ba03e703.chunk.js",
+    "main.js.map": "/imcc/static/js/main.ba03e703.chunk.js.map",
+    "runtime-main.js": "/imcc/static/js/runtime-main.c9ae3f02.js",
+    "runtime-main.js.map": "/imcc/static/js/runtime-main.c9ae3f02.js.map",
+    "static/js/2.dd8c59a2.chunk.js": "/imcc/static/js/2.dd8c59a2.chunk.js",
+    "static/js/2.dd8c59a2.chunk.js.map": "/imcc/static/js/2.dd8c59a2.chunk.js.map",
+    "static/js/3.6fbdc85c.chunk.js": "/imcc/static/js/3.6fbdc85c.chunk.js",
+    "static/js/3.6fbdc85c.chunk.js.map": "/imcc/static/js/3.6fbdc85c.chunk.js.map",
+    "index.html": "/imcc/index.html",
+    "precache-manifest.d20ae5c491fece7f4f825b2f0f6110bf.js": "/imcc/precache-manifest.d20ae5c491fece7f4f825b2f0f6110bf.js",
+    "service-worker.js": "/imcc/service-worker.js",
+    "static/css/main.d5eec487.chunk.css.map": "/imcc/static/css/main.d5eec487.chunk.css.map",
+    "static/js/2.dd8c59a2.chunk.js.LICENSE.txt": "/imcc/static/js/2.dd8c59a2.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c9ae3f02.js",
+    "static/js/2.dd8c59a2.chunk.js",
+    "static/css/main.d5eec487.chunk.css",
+    "static/js/main.ba03e703.chunk.js"
+  ]
+}
