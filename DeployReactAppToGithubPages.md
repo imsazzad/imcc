@@ -1,4 +1,5 @@
 # Deploying a React App* to GitHub Pages
+copied from this [url](https://github.com/gitname/react-gh-pages/blob/master/README.md)
 
 \* created using `create-react-app`
 
