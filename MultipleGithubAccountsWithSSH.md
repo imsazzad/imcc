@@ -126,12 +126,12 @@ Host me.github.com
 
 ## My Current ~/.ssh/folder
 ```bash
-config                  id_personal.pub         id_rsa.pub              known_hosts.old         ru-tagger-trainer.pem
-id_personal             id_rsa                  known_hosts             nlp-deploy.pem
+config                  id_personal.pub         id_rsa.pub  
+id_personal             id_rsa                              
 ```
 
 ## Test my Current SSH connections
 ```bash
- ssh -T git@me.github.com
+ssh -T git@me.github.com
 ssh -T git@github.com
 ```
