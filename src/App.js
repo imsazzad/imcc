@@ -9,8 +9,9 @@ function App() {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const date = String(today.getDate()).padStart(2, '0');
         const fileName = `${date}.json`;
+        const baseUrl = process.env.PUBLIC_URL;
 
-        fetch(`/prayer_time/${month}/${fileName}`)
+        fetch(`${baseUrl}/prayertime/${month}/${fileName}`)
             .then(response => response.json())
             .then(data => setTableData(data))
             .catch(error => console.error('Error fetching data:', error));
