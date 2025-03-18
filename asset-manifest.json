@@ -1,24 +1,25 @@
 {
   "files": {
-    "main.css": "/imcc/static/css/main.d5eec487.chunk.css",
-    "main.js": "/imcc/static/js/main.55d19bc1.chunk.js",
-    "main.js.map": "/imcc/static/js/main.55d19bc1.chunk.js.map",
-    "runtime-main.js": "/imcc/static/js/runtime-main.c9ae3f02.js",
-    "runtime-main.js.map": "/imcc/static/js/runtime-main.c9ae3f02.js.map",
-    "static/js/2.dd8c59a2.chunk.js": "/imcc/static/js/2.dd8c59a2.chunk.js",
-    "static/js/2.dd8c59a2.chunk.js.map": "/imcc/static/js/2.dd8c59a2.chunk.js.map",
-    "static/js/3.6fbdc85c.chunk.js": "/imcc/static/js/3.6fbdc85c.chunk.js",
-    "static/js/3.6fbdc85c.chunk.js.map": "/imcc/static/js/3.6fbdc85c.chunk.js.map",
+    "main.css": "/imcc/static/css/main.c3fcfeb6.chunk.css",
+    "main.js": "/imcc/static/js/main.96fbc57a.chunk.js",
+    "main.js.map": "/imcc/static/js/main.96fbc57a.chunk.js.map",
+    "runtime-main.js": "/imcc/static/js/runtime-main.b4f6a434.js",
+    "runtime-main.js.map": "/imcc/static/js/runtime-main.b4f6a434.js.map",
+    "static/js/2.5e401ee0.chunk.js": "/imcc/static/js/2.5e401ee0.chunk.js",
+    "static/js/2.5e401ee0.chunk.js.map": "/imcc/static/js/2.5e401ee0.chunk.js.map",
+    "static/js/3.c584be63.chunk.js": "/imcc/static/js/3.c584be63.chunk.js",
+    "static/js/3.c584be63.chunk.js.map": "/imcc/static/js/3.c584be63.chunk.js.map",
     "index.html": "/imcc/index.html",
-    "precache-manifest.0a922c0b27ed0ce48a96c198d615cb46.js": "/imcc/precache-manifest.0a922c0b27ed0ce48a96c198d615cb46.js",
+    "precache-manifest.3c9b4acb9cd121afd46caad178582232.js": "/imcc/precache-manifest.3c9b4acb9cd121afd46caad178582232.js",
     "service-worker.js": "/imcc/service-worker.js",
-    "static/css/main.d5eec487.chunk.css.map": "/imcc/static/css/main.d5eec487.chunk.css.map",
-    "static/js/2.dd8c59a2.chunk.js.LICENSE.txt": "/imcc/static/js/2.dd8c59a2.chunk.js.LICENSE.txt"
+    "static/css/main.c3fcfeb6.chunk.css.map": "/imcc/static/css/main.c3fcfeb6.chunk.css.map",
+    "static/js/2.5e401ee0.chunk.js.LICENSE.txt": "/imcc/static/js/2.5e401ee0.chunk.js.LICENSE.txt",
+    "static/media/imcc.png": "/imcc/static/media/imcc.aa25fcd9.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.c9ae3f02.js",
-    "static/js/2.dd8c59a2.chunk.js",
-    "static/css/main.d5eec487.chunk.css",
-    "static/js/main.55d19bc1.chunk.js"
+    "static/js/runtime-main.b4f6a434.js",
+    "static/js/2.5e401ee0.chunk.js",
+    "static/css/main.c3fcfeb6.chunk.css",
+    "static/js/main.96fbc57a.chunk.js"
   ]
 }
