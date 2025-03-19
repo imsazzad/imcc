@@ -70,7 +70,7 @@ function App() {
 
 
     if (!tableData) {
-        return <div>Loading...</div>;
+        return <div>Prayer Time Not Available.</div>;
     }
 
     return (
@@ -80,15 +80,15 @@ function App() {
                 <div className="date-english">{englishDate}</div>
                 <div className="current-time">{currentTime.toLocaleTimeString()}</div>
                 <div className="date-arabic">{arabicDate}</div>
-                <div className="remaining-time">{prayerName} : {formattedRemainingTime}</div>
+                <div className="remaining-time">{prayerName}  {formattedRemainingTime}</div>
             </div>
             <main className="App-main">
                 <table className="App-table">
                     <thead>
                     <tr>
-                        <th>{tableData.header1}</th>
-                        <th>{tableData.header2}</th>
-                        {tableData.header3 && <th>{tableData.header3}</th>}
+                        <th>PRAYER</th>
+                        <th>ADHAN</th>
+                        <th>IQAMAH</th>
                     </tr>
                     </thead>
                     <tbody>
