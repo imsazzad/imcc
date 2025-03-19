@@ -56,8 +56,10 @@ body {
 /* Style for table headers and cells */
 .App-table th, .App-table td {
   border: 1px solid #ddd;
+  border-bottom: #ffffff 10px solid;
   padding: 12px;
   text-align: left;
+  font-size: 20px;
 }
 
 /* Style for table headers */
@@ -68,6 +70,16 @@ body {
   font-weight: bold;
 }
 
+/* App.css */
+.bold-row {
+  font-weight: bold;
+}
+
+/* Style for even rows in the table */
+.App-table tr:nth-child(odd) {
+  background-color: #cdcdcd;
+}
+
 /* Style for even rows in the table */
 .App-table tr:nth-child(even) {
   background-color: #f2f2f2;
@@ -75,7 +87,7 @@ body {
 
 /* Style for table rows on hover */
 .App-table tr:hover {
-  background-color: #ddd;
+  background-color: #918c8c;
 }
 
 
@@ -146,4 +158,44 @@ body {
     font-weight: bold;
     text-align: left;
   }
+
+  /* Style for the date elements in the header */
+  .date-english, .date-arabic, .date-bangla {
+    font-size: 15px;
+    margin-bottom: 2px;
+  }
+  /* Style for the current time element */
+  .current-time {
+    font-size:  40px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
 }
+
+/* Mobile devices (portrait and landscape) */
+@media only screen and (max-width: 480px) {
+  .current-time {
+    font-size: 30px;
+  }
+}
+
+/* Mobile devices (landscape) */
+@media only screen and (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
+  .current-time {
+    font-size: 40px;
+  }
+}
+
+/* Tablets (portrait and landscape) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .current-time {
+    font-size: 50px;
+  }
+}
+
+/*!* Desktops *!*/
+/*@media only screen and (min-width: 1025px) {*/
+/*  .current-time {*/
+/*    font-size: 60px;*/
+/*  }*/
+/*}*/
