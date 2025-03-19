@@ -46,12 +46,13 @@ function App() {
             }
         }
 
-        // because after isha finish it should show fajr time, first row
+        // because after Isha finish it should show fajr time, first row
         const rowTimeString = tableData.rows[0][1] + ":00";
         const prayerName = tableData.rows[0][0];
         const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
-        const timeDifference = Math.abs(rowTimeInSeconds - currentTimeInSeconds);
+        const timeDifference = "24:00:00".split(':').reduce((acc, time) => (60 * acc) + +time) + rowTimeInSeconds - currentTimeInSeconds;
         return { index: 0, timeDifference, prayerName };
+
     };
 
     const { index: nextTimeIndex, timeDifference: remainingTime, prayerName} = getNextTimeIndex();
@@ -65,7 +66,7 @@ function App() {
 
     const formattedRemainingTime = formatRemainingTime(remainingTime);
 
-    console.log("remainingTime", remainingTime, prayerName);
+    console.log("formattedRemainingTime", formattedRemainingTime, prayerName);
 
 
     if (!tableData) {
