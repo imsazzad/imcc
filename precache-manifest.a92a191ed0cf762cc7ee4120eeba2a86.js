@@ -1,11 +1,11 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "9c18b1c234d11a6168054fb99663e2f6",
+    "revision": "a551025c588342f9fe376d46d7050640",
     "url": "/imcc/index.html"
   },
   {
-    "revision": "4449f5fc7e59ab9ccce6",
-    "url": "/imcc/static/css/main.4fcfee25.chunk.css"
+    "revision": "627cfd707d927d74081f",
+    "url": "/imcc/static/css/main.5b635e25.chunk.css"
   },
   {
     "revision": "f2cf6d97612561028fa8",
@@ -20,7 +20,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/imcc/static/js/3.c584be63.chunk.js"
   },
   {
-    "revision": "4449f5fc7e59ab9ccce6",
+    "revision": "627cfd707d927d74081f",
     "url": "/imcc/static/js/main.1999025b.chunk.js"
   },
   {
