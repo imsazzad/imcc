@@ -135,3 +135,13 @@ id_personal             id_rsa
 ssh -T git@me.github.com
 ssh -T git@github.com
 ```
+
+Also you have to update your remote URL in your git repository
+```bash
+git remote -v
+origin  git@me.github.com:imsazzad/imcc.git (fetch)
+origin  git@me.github.com:imsazzad/imcc.git (push)
+
+```
+
+as you can see, I have updated my remote URL to use my personal github account rather than the default github account `git@github.com:imsazzad/imcc.git` to  `git@me.github.com:imsazzad/imcc.git`
