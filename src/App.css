@@ -177,6 +177,9 @@ body {
     color: red;
     font-weight: bold;
   }
+  .logo {
+    margin-bottom: 40px;
+  }
   /* Style for the current time element */
   .current-time {
     font-size:  40px;
@@ -190,6 +193,9 @@ body {
   .current-time {
     font-size: 30px;
   }
+  .logo {
+    margin-bottom: 30px;
+  }
 }
 
 /* Mobile devices (landscape) */
@@ -197,12 +203,18 @@ body {
   .current-time {
     font-size: 40px;
   }
+  .logo {
+    margin-bottom: 30px;
+  }
 }
 
 /* Tablets (portrait and landscape) */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
   .current-time {
     font-size: 50px;
+  }
+  .logo {
+    margin-bottom: 30px;
   }
 }
 
