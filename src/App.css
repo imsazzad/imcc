@@ -102,7 +102,14 @@ body {
 /* Style for the date elements in the header */
 .date-english, .date-arabic, .date-bangla {
   font-size: 25px;
+  margin-bottom: 7px;
+}
+
+.remaining-time{
+  font-size: 25px;
   margin-bottom: 5px;
+  color: red;
+  font-weight: bold;
 }
 /* Style for the current time element */
 .current-time {
@@ -163,6 +170,12 @@ body {
   .date-english, .date-arabic, .date-bangla {
     font-size: 15px;
     margin-bottom: 2px;
+  }
+  .remaining-time{
+    font-size: 15px;
+    margin-bottom: 2px;
+    color: red;
+    font-weight: bold;
   }
   /* Style for the current time element */
   .current-time {

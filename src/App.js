@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
-// import logo from './imcc.png'; // Import the logo
 import logo from './imcc.svg'; // Import the logo
 
 function App() {
@@ -30,27 +29,44 @@ function App() {
     const englishDate = currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const arabicDate = currentTime.toLocaleDateString('en-GB-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' });
 
-    function convertToBanglaDate(date) {
-        const monthsInBangla = [
-            'বৈশাখ', 'জ্যৈষ্ঠ', 'আষাঢ়', 'শ্রাবণ', 'ভাদ্র', 'আশ্বিন',
-            'কার্তিক', 'অগ্রহায়ণ', 'পৌষ', 'মাঘ', 'ফাল্গুন', 'চৈত্র'
-        ];
+    const getNextTimeIndex = () => {
+        if (!tableData) return -1;
+        const currentTimeString = currentTime.toTimeString().split(' ')[0];
+        const currentTimeInSeconds = currentTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
 
-        const daysInBangla = [
-            'শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার'
-        ];
 
-        const numbersInBangla = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+        for (let i = 0; i < tableData.rows.length; i++) {
+            const rowTimeString = tableData.rows[i][1] + ":00";
+            const prayerName = tableData.rows[i][0];
+            const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+            if (rowTimeInSeconds > currentTimeInSeconds) {
+                const timeDifference = Math.abs(rowTimeInSeconds - currentTimeInSeconds);
+                return { index: i, timeDifference, prayerName };
+                // return i;
+            }
+        }
 
-        const day = daysInBangla[date.getDay()];
-        const month = monthsInBangla[date.getMonth()];
-        const year = date.getFullYear().toString().replace(/[0-9]/g, digit => numbersInBangla[digit]);
-        const dateOfMonth = date.getDate().toString().replace(/[0-9]/g, digit => numbersInBangla[digit]);
+        // because after isha finish it should show fajr time, first row
+        const rowTimeString = tableData.rows[0][1] + ":00";
+        const prayerName = tableData.rows[0][0];
+        const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+        const timeDifference = Math.abs(rowTimeInSeconds - currentTimeInSeconds);
+        return { index: 0, timeDifference, prayerName };
+    };
 
-        return `${day}, ${dateOfMonth} ${month}, ${year} বঙ্গাব্দ`;
-    }
+    const { index: nextTimeIndex, timeDifference: remainingTime, prayerName} = getNextTimeIndex();
 
-    // const banglaDate = convertToBanglaDate(currentTime);
+    const formatRemainingTime = (seconds) => {
+        const hrs = Math.floor(seconds / 3600);
+        const mins = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    };
+
+    const formattedRemainingTime = formatRemainingTime(remainingTime);
+
+    console.log("remainingTime", remainingTime, prayerName);
+
 
     if (!tableData) {
         return <div>Loading...</div>;
@@ -63,7 +79,7 @@ function App() {
                 <div className="date-english">{englishDate}</div>
                 <div className="current-time">{currentTime.toLocaleTimeString()}</div>
                 <div className="date-arabic">{arabicDate}</div>
-                {/*<div className="date-bangla">{banglaDate}</div>*/}
+                <div className="remaining-time">{prayerName} : {formattedRemainingTime}</div>
             </div>
             <main className="App-main">
                 <table className="App-table">
@@ -76,7 +92,7 @@ function App() {
                     </thead>
                     <tbody>
                     {tableData.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
+                        <tr key={rowIndex} className={rowIndex === nextTimeIndex ? 'bold-row' : ''}>
                             <td data-label={tableData.header1}>{row[0]}</td>
                             <td data-label={tableData.header2}>{row[1]}</td>
                             {row[2] && <td data-label={tableData.header3}>{row[2]}</td>}
@@ -85,9 +101,7 @@ function App() {
                     </tbody>
                 </table>
             </main>
-
         </div>
-
     );
 }
 
