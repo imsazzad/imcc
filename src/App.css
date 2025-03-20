@@ -68,9 +68,12 @@ body {
 /* Style for table headers */
 .App-table th {
   /*background-color: #007bff;*/
+  padding-bottom: 24px;
+  padding-top: 24px;
   background-color: rgb(232, 173, 145);
   color: white;
-  font-weight: bold;
+  /*font-weight: bold;*/
+  /*font-size: 25px;*/
 }
 
 /* App.css */
