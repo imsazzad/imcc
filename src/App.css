@@ -44,6 +44,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /*height: 100%; !* Ensure .App-main uses the available height *!*/
 }
 
 /* Style for the table in the main content area */
@@ -51,15 +52,17 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin: 10px 0;
+  height: 60%; /* Ensure .App-table uses the available height from .App-main */
 }
 
 /* Style for table headers and cells */
 .App-table th, .App-table td {
-  border: 1px solid #ddd;
-  border-bottom: #ffffff 10px solid;
+  /*border: 1px solid #ddd;*/
+  /*border-bottom: #ffffff 10px solid;*/
   padding: 12px;
   text-align: left;
   font-size: 20px;
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
 }
 
 /* Style for table headers */
@@ -71,8 +74,10 @@ body {
 }
 
 /* App.css */
-.bold-row {
+.bold-colored-row {
   font-weight: bold;
+  color: darkred;
+  font-size: 21px; /* Increase font size by 1 */
 }
 
 /* Style for even rows in the table */
