@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import logo from './imcc.svg'; // Import the logo
+import Papa from 'papaparse';
 
 function App() {
     const [tableData, setTableData] = useState(null);
@@ -11,12 +12,35 @@ function App() {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const date = String(today.getDate()).padStart(2, '0');
         const fileName = `${date}.json`;
+        console.log(fileName, month)
         const baseUrl = process.env.PUBLIC_URL;
 
-        fetch(`${baseUrl}/prayertime/${month}/${fileName}`)
+        //     reading a sample file for now
+        // fetch(`${baseUrl}/prayertime/${month}/${fileName}`)
+        console.log(`${baseUrl}/prayertime/03/abcd.json`)
+        console.log(`${baseUrl}/prayertime/${month}/${fileName}`)
+        fetch(`${baseUrl}/prayertime/03/20.json`)
             .then(response => response.json())
             .then(data => setTableData(data))
             .catch(error => console.error('Error fetching data:', error));
+
+        // fetch(`${baseUrl}/prayertime/03.csv`)
+        //     .then(response => response.text())
+        //     .then(csvData => {
+        //         Papa.parse(csvData, {
+        //             header: true,
+        //             skipEmptyLines: true,
+        //             complete: (result) => {
+        //                 const selectedRows = [result.data[0], result.data[date]];
+        //                 console.log(selectedRows); // Log the selected rows
+        //                 // setTableData(result.data);
+        //             },
+        //             error: (error) => {
+        //                 console.error('Error parsing CSV data:', error);
+        //             }
+        //         });
+        //     })
+        //     .catch(error => console.error('Error fetching data:', error));
     }, []);
 
     useEffect(() => {
