@@ -36,13 +36,19 @@ function App() {
 
 
         for (let i = 0; i < tableData.rows.length; i++) {
-            const rowTimeString = tableData.rows[i][1] + ":00";
+            const rowAdhanTimeString = tableData.rows[i][1] + ":00";
+            const rowIqamahTimeString = tableData.rows[i][2] + ":00";
             const prayerName = tableData.rows[i][0];
-            const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
-            if (rowTimeInSeconds > currentTimeInSeconds) {
-                const timeDifference = Math.abs(rowTimeInSeconds - currentTimeInSeconds);
-                return { index: i, timeDifference, prayerName };
+            const rowAdhanTimeInSeconds = rowAdhanTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+            const rowIqamahTimeInSeconds = rowIqamahTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+            if (rowAdhanTimeInSeconds > currentTimeInSeconds) {
+                const timeDifference = Math.abs(rowAdhanTimeInSeconds - currentTimeInSeconds);
+                return { index: i, timeDifference, prayerName:prayerName };
                 // return i;
+            }
+            else if (rowAdhanTimeInSeconds < currentTimeInSeconds &&  rowIqamahTimeInSeconds > currentTimeInSeconds) {
+                const timeDifference = Math.abs(rowIqamahTimeInSeconds - currentTimeInSeconds);
+                return { index: i, timeDifference, prayerName: `${prayerName} IQAMAH` };
             }
         }
 
@@ -51,7 +57,7 @@ function App() {
         const prayerName = tableData.rows[0][0];
         const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
         const timeDifference = "24:00:00".split(':').reduce((acc, time) => (60 * acc) + +time) + rowTimeInSeconds - currentTimeInSeconds;
-        return { index: 0, timeDifference, prayerName };
+        return { index: 0, timeDifference, prayerName:prayerName };
 
     };
 
@@ -93,10 +99,16 @@ function App() {
                     </thead>
                     <tbody>
                     {tableData.rows.map((row, rowIndex) => (
-                        <tr key={rowIndex} className={rowIndex === nextTimeIndex ? 'bold-row' : ''}>
+                        <tr key={rowIndex} className={rowIndex === nextTimeIndex ? 'bold-colored-row' : ''}>
                             <td data-label={tableData.header1}>{row[0]}</td>
-                            <td data-label={tableData.header2}>{row[1]}</td>
-                            {row[2] && <td data-label={tableData.header3}>{row[2]}</td>}
+                            {rowIndex === 1 ? (
+                                <td data-label={tableData.header2} colSpan="2">{row[1]}</td>
+                            ) : (
+                                <>
+                                    <td data-label={tableData.header2}>{row[1]}</td>
+                                    {row[2] && <td data-label={tableData.header3}>{row[2]}</td>}
+                                </>
+                            )}
                         </tr>
                     ))}
                     </tbody>
