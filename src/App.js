@@ -15,32 +15,69 @@ function App() {
         console.log(fileName, month)
         const baseUrl = process.env.PUBLIC_URL;
 
-        //     reading a sample file for now
         // fetch(`${baseUrl}/prayertime/${month}/${fileName}`)
         console.log(`${baseUrl}/prayertime/03/abcd.json`)
         console.log(`${baseUrl}/prayertime/${month}/${fileName}`)
         fetch(`${baseUrl}/prayertime/03/20.json`)
             .then(response => response.json())
-            .then(data => setTableData(data))
+            // .then(data => setTableData(data))
             .catch(error => console.error('Error fetching data:', error));
 
-        // fetch(`${baseUrl}/prayertime/03.csv`)
-        //     .then(response => response.text())
-        //     .then(csvData => {
-        //         Papa.parse(csvData, {
-        //             header: true,
-        //             skipEmptyLines: true,
-        //             complete: (result) => {
-        //                 const selectedRows = [result.data[0], result.data[date]];
-        //                 console.log(selectedRows); // Log the selected rows
-        //                 // setTableData(result.data);
-        //             },
-        //             error: (error) => {
-        //                 console.error('Error parsing CSV data:', error);
-        //             }
-        //         });
-        //     })
-        //     .catch(error => console.error('Error fetching data:', error));
+        const findIqamahTime = (time, minutes) => {
+            const [hours, mins] = time.split(':').map(Number);
+            const date = new Date();
+            date.setHours(hours, mins + minutes);
+            return date.toTimeString().split(' ')[0].slice(0, 5);
+        };
+
+        const iqamahTimeForDhuhr = (time) => {
+            const [hours, mins] = time.split(':').map(Number);
+            if (hours < 12 || (hours === 12 && mins < 50)) {
+                return "12:50";
+            } else {
+                return "13:50";
+            }
+        };
+
+        const fetchPrayerTimes = async () => {
+            let url = 'http://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2';
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    async (position) => {
+                        const { latitude, longitude } = position.coords;
+                        url = `http://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`;
+                    },
+                    async (error) => {
+                        console.error('Error getting location:', error);
+                    }
+                );
+            }
+
+            // const response = await fetch('http://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2');
+            const response = await fetch(url);
+            const data = await response.json();
+            const timings = data.data.timings;
+
+            const formattedData = {
+                header1: "PRAYER",
+                header2: "ADHAN",
+                header3: "IQAMAH",
+                rows: [
+                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
+                    ["SUNRISE", timings.Sunrise, ""],
+                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
+                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
+                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
+                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
+                ]
+            };
+            console.log("time table", formattedData);
+
+            setTableData(formattedData);
+        };
+
+        fetchPrayerTimes();
+
     }, []);
 
     useEffect(() => {
