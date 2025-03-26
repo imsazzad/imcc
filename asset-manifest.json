@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/imcc/static/css/main.4cb1da98.chunk.css",
-    "main.js": "/imcc/static/js/main.23f145a9.chunk.js",
-    "main.js.map": "/imcc/static/js/main.23f145a9.chunk.js.map",
+    "main.js": "/imcc/static/js/main.41f869a2.chunk.js",
+    "main.js.map": "/imcc/static/js/main.41f869a2.chunk.js.map",
     "runtime-main.js": "/imcc/static/js/runtime-main.b4825bf5.js",
     "runtime-main.js.map": "/imcc/static/js/runtime-main.b4825bf5.js.map",
     "static/js/2.b072c2bb.chunk.js": "/imcc/static/js/2.b072c2bb.chunk.js",
@@ -10,7 +10,7 @@
     "static/js/3.697f743a.chunk.js": "/imcc/static/js/3.697f743a.chunk.js",
     "static/js/3.697f743a.chunk.js.map": "/imcc/static/js/3.697f743a.chunk.js.map",
     "index.html": "/imcc/index.html",
-    "precache-manifest.28120215c33826fa9d2729b4d3dc66da.js": "/imcc/precache-manifest.28120215c33826fa9d2729b4d3dc66da.js",
+    "precache-manifest.5fe4399b48ca46727d95751e0b32e33d.js": "/imcc/precache-manifest.5fe4399b48ca46727d95751e0b32e33d.js",
     "service-worker.js": "/imcc/service-worker.js",
     "static/css/main.4cb1da98.chunk.css.map": "/imcc/static/css/main.4cb1da98.chunk.css.map",
     "static/js/2.b072c2bb.chunk.js.LICENSE.txt": "/imcc/static/js/2.b072c2bb.chunk.js.LICENSE.txt",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.b4825bf5.js",
     "static/js/2.b072c2bb.chunk.js",
     "static/css/main.4cb1da98.chunk.css",
-    "static/js/main.23f145a9.chunk.js"
+    "static/js/main.41f869a2.chunk.js"
   ]
 }
