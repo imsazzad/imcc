@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import logo from './imcc.svg'; // Import the logo
 // import Papa from 'papaparse';
+import Calendar from 'date-bengali-revised'
 
 function App() {
     const [tableData, setTableData] = useState(null);
@@ -143,8 +144,16 @@ function App() {
         return () => clearInterval(timer);
     }, []);
 
+
     const englishDate = currentTime.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
     const arabicDate = currentTime.toLocaleDateString('en-GB-u-ca-islamic', { day: 'numeric', month: 'long', year: 'numeric' });
+    const today = new Date();
+    const bengaliDate= new Calendar().fromGregorian(today.getFullYear(),
+        String(today.getMonth() + 1).padStart(2, '0'),
+        String(today.getDate()).padStart(2, '0')).format('dddd, D MMMM, Y [Q]')
+    console.log("bangla cal", bengaliDate)
+
+
 
     const getNextTimeIndex = () => {
         if (!tableData) return -1;
@@ -203,6 +212,7 @@ function App() {
                 <div className="date-english">{englishDate}</div>
                 <div className="current-time">{currentTime.toLocaleTimeString()}</div>
                 <div className="date-arabic">{arabicDate}</div>
+                <div className="date-bangla">{bengaliDate}</div>
                 <div className="remaining-time">{prayerName}  {formattedRemainingTime}</div>
             </div>
             <main className="App-main">
