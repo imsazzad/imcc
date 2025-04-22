@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import logo from './imcc.svg'; // Import the logo
-import Papa from 'papaparse';
+// import Papa from 'papaparse';
 
 function App() {
     const [tableData, setTableData] = useState(null);
@@ -12,15 +12,13 @@ function App() {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const date = String(today.getDate()).padStart(2, '0');
         const fileName = `${date}.json`;
-        console.log(fileName, month)
+        // console.log(fileName, month);
         const baseUrl = process.env.PUBLIC_URL;
 
-        // fetch(`${baseUrl}/prayertime/${month}/${fileName}`)
-        console.log(`${baseUrl}/prayertime/03/abcd.json`)
-        console.log(`${baseUrl}/prayertime/${month}/${fileName}`)
+        // console.log(`${baseUrl}/prayertime/03/abcd.json`);
+        // console.log(`${baseUrl}/prayertime/${month}/${fileName}`);
         fetch(`${baseUrl}/prayertime/03/20.json`)
             .then(response => response.json())
-            // .then(data => setTableData(data))
             .catch(error => console.error('Error fetching data:', error));
 
         const findIqamahTime = (time, minutes) => {
@@ -40,42 +38,100 @@ function App() {
         };
 
         const fetchPrayerTimes = async () => {
-            let url = 'http://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2';
+            let url = 'https://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2';
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(
                     async (position) => {
                         const { latitude, longitude } = position.coords;
-                        url = `http://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`;
+                        url = `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`;
+                        try {
+                            const response = await fetch(url);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            const timings = data.data.timings;
+
+                            const formattedData = {
+                                header1: "PRAYER",
+                                header2: "ADHAN",
+                                header3: "IQAMAH",
+                                rows: [
+                                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
+                                    ["SUNRISE", timings.Sunrise, ""],
+                                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
+                                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
+                                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
+                                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
+                                ]
+                            };
+
+                            setTableData(formattedData);
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
                     },
                     async (error) => {
                         console.error('Error getting location:', error);
+                        try {
+                            const response = await fetch(url);
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            const data = await response.json();
+                            const timings = data.data.timings;
+
+                            const formattedData = {
+                                header1: "PRAYER",
+                                header2: "ADHAN",
+                                header3: "IQAMAH",
+                                rows: [
+                                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
+                                    ["SUNRISE", timings.Sunrise, ""],
+                                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
+                                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
+                                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
+                                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
+                                ]
+                            };
+
+                            setTableData(formattedData);
+                        } catch (error) {
+                            console.error('Error fetching data:', error);
+                        }
                     }
                 );
+            } else {
+                try {
+                    const response = await fetch(url);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    const data = await response.json();
+                    const timings = data.data.timings;
+
+                    const formattedData = {
+                        header1: "PRAYER",
+                        header2: "ADHAN",
+                        header3: "IQAMAH",
+                        rows: [
+                            ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
+                            ["SUNRISE", timings.Sunrise, ""],
+                            ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
+                            ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
+                            ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
+                            ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
+                        ]
+                    };
+
+                    setTableData(formattedData);
+                } catch (error) {
+                    console.error('Error fetching data:', error);
+                }
             }
-
-            // const response = await fetch('http://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2');
-            const response = await fetch(url);
-            const data = await response.json();
-            const timings = data.data.timings;
-
-            const formattedData = {
-                header1: "PRAYER",
-                header2: "ADHAN",
-                header3: "IQAMAH",
-                rows: [
-                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
-                    ["SUNRISE", timings.Sunrise, ""],
-                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
-                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
-                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
-                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
-                ]
-            };
-            console.log("time table", formattedData);
-
-            setTableData(formattedData);
         };
 
+        // Ensure the promise is handled
         fetchPrayerTimes();
 
     }, []);
@@ -133,7 +189,7 @@ function App() {
 
     const formattedRemainingTime = formatRemainingTime(remainingTime);
 
-    console.log("formattedRemainingTime", formattedRemainingTime, prayerName);
+    // console.log("formattedRemainingTime", formattedRemainingTime, prayerName);
 
 
     if (!tableData) {

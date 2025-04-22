@@ -156,12 +156,15 @@ body {
 
   .App-table tr {
     margin-bottom: 15px;
+    clear: both; /* Ensure each row starts on a new line */
   }
 
   .App-table td {
     text-align: right;
     padding-left: 50%;
     position: relative;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+    clear: both; /* Ensure each cell starts on a new line */
   }
 
   .App-table td::before {
@@ -172,6 +175,11 @@ body {
     padding-left: 15px;
     font-weight: bold;
     text-align: left;
+    box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+  }
+
+  .App-table td:last-child {
+    margin-bottom: 15px; /* Ensure there is space between the last cell and the next row */
   }
 
   /* Style for the date elements in the header */
@@ -190,7 +198,7 @@ body {
   }
   /* Style for the current time element */
   .current-time {
-    font-size:  40px;
+    font-size: 40px;
     font-weight: bold;
     margin-bottom: 5px;
   }
