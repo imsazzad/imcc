@@ -13,7 +13,7 @@ function App() {
         const month = String(today.getMonth() + 1).padStart(2, '0');
         const date = String(today.getDate()).padStart(2, '0');
         const fileName = `${date}.json`;
-        // console.log(fileName, month);
+        console.log(fileName, month);
         const baseUrl = process.env.PUBLIC_URL;
 
         // console.log(`${baseUrl}/prayertime/03/abcd.json`);
@@ -22,119 +22,78 @@ function App() {
             .then(response => response.json())
             .catch(error => console.error('Error fetching data:', error));
 
-        const findIqamahTime = (time, minutes) => {
-            const [hours, mins] = time.split(':').map(Number);
-            const date = new Date();
-            date.setHours(hours, mins + minutes);
-            return date.toTimeString().split(' ')[0].slice(0, 5);
-        };
-
-        const iqamahTimeForDhuhr = (time) => {
-            const [hours, mins] = time.split(':').map(Number);
-            if (hours < 12 || (hours === 12 && mins < 50)) {
-                return "12:50";
-            } else {
-                return "13:50";
-            }
-        };
 
         const fetchPrayerTimes = async () => {
-            let url = 'https://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2';
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(
-                    async (position) => {
-                        const { latitude, longitude } = position.coords;
-                        url = `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`;
-                        try {
-                            const response = await fetch(url);
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            const data = await response.json();
-                            const timings = data.data.timings;
+            const baseApiUrl = 'https://api.aladhan.com/v1/timingsByCity?city=Dublin&country=Ireland&method=2';
 
-                            const formattedData = {
-                                header1: "PRAYER",
-                                header2: "ADHAN",
-                                header3: "IQAMAH",
-                                rows: [
-                                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
-                                    ["SUNRISE", timings.Sunrise, ""],
-                                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
-                                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
-                                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
-                                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
-                                ]
-                            };
+            // Processes the prayer timings and formats them into a structured table data object
+            const processTimings = (timings) => {
 
-                            setTableData(formattedData);
-                        } catch (error) {
-                            console.error('Error fetching data:', error);
-                        }
-                    },
-                    async (error) => {
-                        console.error('Error getting location:', error);
-                        try {
-                            const response = await fetch(url);
-                            if (!response.ok) {
-                                throw new Error(`HTTP error! status: ${response.status}`);
-                            }
-                            const data = await response.json();
-                            const timings = data.data.timings;
+                // Calculates the Iqamah time by adding a specified number of minutes to the given time
+                const findIqamahTime = (time, minutes) => {
+                    const [hours, mins] = time.split(':').map(Number);
+                    const date = new Date();
+                    date.setHours(hours, mins + minutes);
+                    return date.toTimeString().split(' ')[0].slice(0, 5);
+                };
 
-                            const formattedData = {
-                                header1: "PRAYER",
-                                header2: "ADHAN",
-                                header3: "IQAMAH",
-                                rows: [
-                                    ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
-                                    ["SUNRISE", timings.Sunrise, ""],
-                                    ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
-                                    ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
-                                    ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
-                                    ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
-                                ]
-                            };
+                // Determines the iqamah time for Dhuhr based on specific conditions
+                const iqamahTimeForDhuhr = (time) => {
+                    const [hours, mins] = time.split(':').map(Number);
+                    return (hours < 12 || (hours === 12 && mins < 50)) ? "12:50" : "13:50";
+                };
 
-                            setTableData(formattedData);
-                        } catch (error) {
-                            console.error('Error fetching data:', error);
-                        }
-                    }
-                );
-            } else {
-                try {
-                    const response = await fetch(url);
-                    if (!response.ok) {
-                        throw new Error(`HTTP error! status: ${response.status}`);
-                    }
-                    const data = await response.json();
-                    const timings = data.data.timings;
+                return {
+                    header1: "PRAYER",
+                    header2: "ADHAN",
+                    header3: "IQAMAH",
+                    rows: [
+                        ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
+                        ["SUNRISE", timings.Sunrise, ""],
+                        ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
+                        ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
+                        ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
+                        ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
+                    ]
+                };
+            };
 
-                    const formattedData = {
-                        header1: "PRAYER",
-                        header2: "ADHAN",
-                        header3: "IQAMAH",
-                        rows: [
-                            ["FAJR", timings.Fajr, findIqamahTime(timings.Fajr, 20)],
-                            ["SUNRISE", timings.Sunrise, ""],
-                            ["DHUHR", timings.Dhuhr, iqamahTimeForDhuhr(timings.Dhuhr)],
-                            ["ASR", timings.Asr, findIqamahTime(timings.Asr, 10)],
-                            ["MAGHRIB", timings.Maghrib, findIqamahTime(timings.Maghrib, 10)],
-                            ["ISHA", timings.Isha, findIqamahTime(timings.Isha, 20)]
-                        ]
-                    };
-
-                    setTableData(formattedData);
-                } catch (error) {
-                    console.error('Error fetching data:', error);
+            // Fetches prayer timings from the given API URL and returns the timings data
+            const fetchTimings = async (url) => {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
                 }
+                const data = await response.json();
+                return data.data.timings;
+            };
+
+            try {
+                let url = baseApiUrl;
+
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        async ({ coords: { latitude, longitude } }) => {
+                            url = `https://api.aladhan.com/v1/timings?latitude=${latitude}&longitude=${longitude}&method=2`;
+                            const timings = await fetchTimings(url);
+                            setTableData(processTimings(timings));
+                        },
+                        async () => {
+                            const timings = await fetchTimings(url);
+                            setTableData(processTimings(timings));
+                        }
+                    );
+                } else {
+                    const timings = await fetchTimings(url);
+                    setTableData(processTimings(timings));
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
             }
         };
 
         // Ensure the promise is handled
         fetchPrayerTimes();
-
     }, []);
 
     useEffect(() => {
@@ -151,11 +110,36 @@ function App() {
     const bengaliDate= new Calendar().fromGregorian(today.getFullYear(),
         String(today.getMonth() + 1).padStart(2, '0'),
         String(today.getDate()).padStart(2, '0')).format('dddd, D MMMM, Y [Q]')
-    console.log("bangla cal", bengaliDate)
 
 
+    // Determine if the prayer is running now. assumption is if current time is in between iqamah time + 15 minutes
+    const isPrayerRunning = (nextPrayerRowIndex) => {
+        if (!tableData) return -1;
+        const currentTimeString = currentTime.toTimeString().split(' ')[0];
+        const currentTimeInSeconds = currentTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+        let previousPrayerIndex = -1
+        if (nextPrayerRowIndex === 0) {
+            previousPrayerIndex = tableData.rows.length - 1
+        }
+        else if (nextPrayerRowIndex === 2) {
+            previousPrayerIndex = 0
+        }
+        else {
+            previousPrayerIndex = nextPrayerRowIndex - 1;
+        }
+        console.log(previousPrayerIndex, nextPrayerRowIndex);
 
-    const getNextTimeIndex = () => {
+        const rowIqamahTimeString = tableData.rows[previousPrayerIndex][2] + ":00";
+        const rowIqamahTimeInSeconds = rowIqamahTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+        let turnOnBlackScreen = false;
+        if (currentTimeInSeconds - rowIqamahTimeInSeconds >= 0 && currentTimeInSeconds - rowIqamahTimeInSeconds <= 15 * 60) { // 900 seconds = 15 minutes
+            turnOnBlackScreen = true;
+        }
+        return turnOnBlackScreen;
+    };
+
+    // Determines the next prayer time index, time difference, and prayer name based on the current time
+    const getNextPrayerTimeIndex = () => {
         if (!tableData) return -1;
         const currentTimeString = currentTime.toTimeString().split(' ')[0];
         const currentTimeInSeconds = currentTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
@@ -167,28 +151,31 @@ function App() {
             const prayerName = tableData.rows[i][0];
             const rowAdhanTimeInSeconds = rowAdhanTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
             const rowIqamahTimeInSeconds = rowIqamahTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
+
             if (rowAdhanTimeInSeconds > currentTimeInSeconds) {
                 const timeDifference = Math.abs(rowAdhanTimeInSeconds - currentTimeInSeconds);
-                return { index: i, timeDifference, prayerName:prayerName };
-                // return i;
+                return { index: i, timeDifference, prayerName:prayerName};
             }
             else if (rowAdhanTimeInSeconds < currentTimeInSeconds &&  rowIqamahTimeInSeconds > currentTimeInSeconds) {
                 const timeDifference = Math.abs(rowIqamahTimeInSeconds - currentTimeInSeconds);
-                return { index: i, timeDifference, prayerName: `${prayerName} IQAMAH` };
+                return { index: i, timeDifference, prayerName: `${prayerName} IQAMAH`};
             }
         }
 
         // because after Isha finish it should show fajr time, first row
+        // Handle case where the next prayer is Fajr on the next day
         const rowTimeString = tableData.rows[0][1] + ":00";
         const prayerName = tableData.rows[0][0];
         const rowTimeInSeconds = rowTimeString.split(':').reduce((acc, time) => (60 * acc) + +time);
         const timeDifference = "24:00:00".split(':').reduce((acc, time) => (60 * acc) + +time) + rowTimeInSeconds - currentTimeInSeconds;
-        return { index: 0, timeDifference, prayerName:prayerName };
+        return { index: 0, timeDifference, prayerName:prayerName};
 
     };
 
-    const { index: nextTimeIndex, timeDifference: remainingTime, prayerName} = getNextTimeIndex();
+    const { index: nextTimeIndex, timeDifference: remainingTime, prayerName} = getNextPrayerTimeIndex();
+    const turnOnBlackScreen = isPrayerRunning(nextTimeIndex);
 
+    // Formats the remaining time in seconds into a string in HH:MM:SS format
     const formatRemainingTime = (seconds) => {
         const hrs = Math.floor(seconds / 3600);
         const mins = Math.floor((seconds % 3600) / 60);
@@ -204,8 +191,16 @@ function App() {
     if (!tableData) {
         return <div>Prayer Time Not Available.</div>;
     }
+    if (turnOnBlackScreen) {
+        return (
+            <div className="black-screen">
+                Prayer in progress. Kindly silence all your devices or turn them off.
+            </div>
+        );
+    }
 
-    return (
+
+        return (
         <div className="App">
             <div className="App-header">
                 <img src={logo} alt="IMCC Logo" className="logo" />

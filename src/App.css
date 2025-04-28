@@ -47,6 +47,21 @@ body {
   /*height: 100%; !* Ensure .App-main uses the available height *!*/
 }
 
+.black-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  z-index: 9999;
+}
+
 /* Style for the table in the main content area */
 .App-table {
   width: 100%;
