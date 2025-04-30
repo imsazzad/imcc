@@ -236,6 +236,14 @@ function App() {
                     </tbody>
                 </table>
             </main>
+            <footer className="App-footer">
+                <div>Irish Muslim Cultural Center</div>
+                <div>Jummuah Prayer: 13:15 </div>
+                <div>
+                    Any issues? Please Contact Md Abdul Hasib at &nbsp; <br/>
+                    <a href="mailto:abdulhasibsazzad@gmail.com">abdulhasibsazzad@gmail.com</a>
+                </div>
+            </footer>
         </div>
     );
 }

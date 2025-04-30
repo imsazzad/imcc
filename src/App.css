@@ -258,3 +258,49 @@ body {
 /*    font-size: 60px;*/
 /*  }*/
 /*}*/
+
+.App-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f1f1f1;
+  font-size: 14px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap; /* Allow wrapping on smaller screens */
+  text-align: center;
+}
+
+.App-footer div {
+  flex: 1;
+  text-align: center;
+  padding: 5px;
+}
+
+.App-footer div:first-child {
+  text-align: left;
+}
+
+.App-footer div:last-child {
+  text-align: center;
+  word-break: break-word; /* Break long words to prevent overflow */
+  overflow: hidden; /* Hide any overflowing content */
+  white-space: normal; /* Allow text to wrap */
+  max-width: 100%; /* Ensure it doesn't exceed the container width */
+  flex-shrink: 1; /* Allow the content to shrink if needed */
+}
+
+@media screen and (max-width: 600px) {
+  .App-footer {
+    flex-direction: column;
+  }
+
+  .App-footer div {
+    text-align: center;
+    margin: 5px 0;
+  }
+}
