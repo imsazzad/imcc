@@ -96,6 +96,9 @@ body {
   font-weight: bold;
   color: darkred;
   font-size: 21px; /* Increase font size by 1 */
+  border-bottom: 2px solid rgb(188, 103, 63); /* Added a blue border */
+  border-top: 2px solid rgb(188, 103, 63); /* Added a blue border */
+  border-right: 2px solid rgb(188, 103, 63); /* Added a blue border */
 }
 
 /* Style for even rows in the table */
